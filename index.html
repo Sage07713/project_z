@@ -4,224 +4,1512 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZIPI Innovation - Advanced Ground Control Systems | Indigenous Drone Technology</title>
-
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-950: #020617;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-300: #cbd5e1;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+            
+            --cyan-500: #06b6d4;
+            --cyan-400: #22d3ee;
+            --blue-600: #2563eb;
+            --blue-500: #3b82f6;
+            --emerald-500: #10b981;
+            --amber-500: #f59e0b;
+            --red-500: #ef4444;
+            
+            --gradient-tech: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --gradient-accent: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%);
+            --gradient-mesh: radial-gradient(at 20% 30%, rgba(6, 182, 212, 0.15) 0px, transparent 50%),
+                             radial-gradient(at 80% 70%, rgba(59, 130, 246, 0.1) 0px, transparent 50%);
+        }
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="assets/css/styles.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+            background: var(--slate-950);
+            color: var(--slate-200);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Technical Grid Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-mesh);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            z-index: 1000;
+            padding: 0;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .logo-mark {
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-accent);
+            position: relative;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-mark::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--slate-950);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--slate-100);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .logo-sub {
+            font-size: 0.7rem;
+            color: var(--cyan-400);
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--slate-300);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            transition: color 0.3s ease;
+            letter-spacing: 0.02em;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--cyan-400);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-accent);
+            color: var(--slate-950) !important;
+            padding: 0.7rem 1.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .nav-cta::after {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 3rem 4rem;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--cyan-400);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--cyan-400);
+            border-radius: 50%;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .hero-text h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--slate-50);
+            letter-spacing: -0.03em;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero-text h1 .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--slate-400);
+            margin-bottom: 2rem;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--slate-400);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            animation: fadeInUp 0.8s ease-out 0.6s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+
+        .btn {
+            padding: 1.1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-radius: 4px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--slate-950);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan-400);
+            border: 1px solid rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-outline:hover {
+            background: rgba(6, 182, 212, 0.1);
+            border-color: var(--cyan-400);
+        }
+
+        /* Hero Visual - Advanced 3D Drone Illustration */
+        .hero-visual {
+            position: relative;
+            animation: fadeInRight 1s ease-out 0.5s backwards;
+        }
+
+        .drone-system {
+            position: relative;
+            width: 100%;
+            height: 600px;
+        }
+
+        /* Radar/Sonar Visualization */
+        .radar-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+        }
+
+        .radar-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 50%;
+        }
+
+        .radar-circle:nth-child(1) { width: 500px; height: 500px; }
+        .radar-circle:nth-child(2) { width: 400px; height: 400px; opacity: 0.6; }
+        .radar-circle:nth-child(3) { width: 300px; height: 300px; opacity: 0.4; }
+        .radar-circle:nth-child(4) { width: 200px; height: 200px; opacity: 0.3; }
+        .radar-circle:nth-child(5) { width: 100px; height: 100px; opacity: 0.2; }
+
+        .radar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-400));
+            transform-origin: left center;
+            animation: radar-sweep 4s linear infinite;
+        }
+
+        @keyframes radar-sweep {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* 3D Drone Model */
+        .drone-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 280px;
+        }
+
+        .drone-body-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 140px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--slate-700) 0%, var(--slate-800) 100%);
+            border-radius: 30px;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.5),
+                inset 0 2px 10px rgba(6, 182, 212, 0.2),
+                0 0 30px rgba(6, 182, 212, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .drone-body-3d::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 12px;
+            background: var(--gradient-accent);
+            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+        }
+
+        .drone-arm-3d {
+            position: absolute;
+            width: 100px;
+            height: 6px;
+            background: linear-gradient(90deg, var(--slate-600), var(--slate-700));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+        }
+
+        .arm-top-left { top: 25%; left: 10%; transform: rotate(-45deg); }
+        .arm-top-right { top: 25%; right: 10%; transform: rotate(45deg); }
+        .arm-bottom-left { bottom: 25%; left: 10%; transform: rotate(45deg); }
+        .arm-bottom-right { bottom: 25%; right: 10%; transform: rotate(-45deg); }
+
+        .motor-3d {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, var(--slate-600), var(--slate-800));
+            border-radius: 50%;
+            border: 2px solid var(--slate-500);
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.6),
+                inset 0 2px 5px rgba(6, 182, 212, 0.2);
+        }
+
+        .motor-top-left { top: 5%; left: 5%; }
+        .motor-top-right { top: 5%; right: 5%; }
+        .motor-bottom-left { bottom: 5%; left: 5%; }
+        .motor-bottom-right { bottom: 5%; right: 5%; }
+
+        .propeller-3d {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            animation: spin-propeller 0.3s linear infinite;
+        }
+
+        .propeller-3d::before,
+        .propeller-3d::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.4), rgba(6, 182, 212, 0.1));
+            border-radius: 50%;
+        }
+
+        .propeller-3d::before {
+            width: 100%;
+            height: 15%;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .propeller-3d::after {
+            width: 15%;
+            height: 100%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        .prop-top-left { top: 5%; left: 5%; }
+        .prop-top-right { top: 5%; right: 5%; }
+        .prop-bottom-left { bottom: 5%; left: 5%; }
+        .prop-bottom-right { bottom: 5%; right: 5%; }
+
+        @keyframes spin-propeller {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Data Streams */
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--cyan-400), transparent);
+            animation: data-flow 2s ease-in-out infinite;
+        }
+
+        .stream-1 { top: 10%; left: 30%; animation-delay: 0s; }
+        .stream-2 { top: 20%; right: 25%; animation-delay: 0.3s; }
+        .stream-3 { bottom: 15%; left: 35%; animation-delay: 0.6s; }
+        .stream-4 { bottom: 25%; right: 30%; animation-delay: 0.9s; }
+
+        @keyframes data-flow {
+            0%, 100% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 1; }
+            100% { transform: translateY(30px); }
+        }
+
+        /* Technical Stats Overlay */
+        .tech-stats {
+            position: absolute;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cyan-400);
+            background: rgba(15, 23, 42, 0.8);
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-1 { top: 5%; right: 5%; }
+        .stat-2 { bottom: 5%; left: 5%; }
+        .stat-3 { top: 40%; left: -10%; }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            margin-top: -4rem;
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+            padding: 1.5rem 0;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.5s ease;
+        }
+
+        .stat-item:hover::after {
+            width: 80%;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--slate-400);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--cyan-400);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--cyan-400);
+        }
+
+        .section-header h2 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--slate-50);
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--slate-400);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .product-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(6, 182, 212, 0.2);
+        }
+
+        .product-image {
+            height: 280px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+        }
+
+        /* SVG Product Illustrations */
+        .product-svg {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-content {
+            padding: 2rem;
+        }
+
+        .product-tag {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--cyan-400);
+            background: rgba(6, 182, 212, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .product-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--slate-100);
+            font-weight: 600;
+        }
+
+        .product-card p {
+            color: var(--slate-400);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .tech-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-badge {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(6, 182, 212, 0.05);
+            color: var(--slate-400);
+            padding: 0.4rem 0.9rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            letter-spacing: 0.02em;
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--cyan-400);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: gap 0.3s ease;
+        }
+
+        .product-link:hover {
+            gap: 1rem;
+        }
+
+        /* Architecture Visualization */
+        .architecture-section {
+            background: rgba(15, 23, 42, 0.5);
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+        }
+
+        .architecture-diagram {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 8px;
+            padding: 3rem;
+            margin-top: 4rem;
+        }
+
+        .arch-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .arch-layer {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 2rem;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .arch-layer:nth-child(1) { border-left-color: #06b6d4; }
+        .arch-layer:nth-child(2) { border-left-color: #3b82f6; }
+        .arch-layer:nth-child(3) { border-left-color: #10b981; }
+        .arch-layer:nth-child(4) { border-left-color: #f59e0b; }
+        .arch-layer:nth-child(5) { border-left-color: #ef4444; }
+        .arch-layer:nth-child(6) { border-left-color: #8b5cf6; }
+
+        .arch-layer:hover {
+            background: rgba(30, 41, 59, 0.8);
+            transform: translateX(10px);
+        }
+
+        .arch-layer-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--slate-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .arch-layer h3 {
+            font-size: 1.3rem;
+            color: var(--slate-100);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .arch-layer p {
+            color: var(--slate-400);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .layer-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .layer-tag {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(6, 182, 212, 0.05);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--cyan-400);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 999;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.7);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--slate-900);
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 4rem 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--slate-200);
+            font-weight: 600;
+        }
+
+        .footer-section p {
+            color: var(--slate-400);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: var(--slate-400);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--cyan-400);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            text-align: center;
+            color: var(--slate-500);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav .container {
+                padding: 1rem 1.5rem;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-layer {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo-mark"></div>
+                <div class="logo-text">
+                    <div class="logo">ZIPI</div>
+                    <div class="logo-sub">Innovation</div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="#products">PRODUCTS</a></li>
+                <li><a href="#technology">TECHNOLOGY</a></li>
+                <li><a href="#innovation">INNOVATION</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+                <li><a href="contact.html" class="nav-cta">GET STARTED</a></li>
+            </ul>
+        </div>
+    </nav>
 
-<!-- ===================================================== -->
-<!-- PASTE EVERYTHING INSIDE YOUR ORIGINAL <body> HERE   -->
-<!-- Do NOT paste <style> section                         -->
-<!-- ===================================================== -->
-<!-- ================= NAVIGATION ================= -->
-<nav>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    INDIA'S FIRST INDIGENOUS GCS PLATFORM
+                </div>
+                <h1>
+                    Advanced Ground Control<br>
+                    <span class="gradient-text">Systems Technology</span>
+                </h1>
+                <p class="subtitle">Military-Grade Security. AI-Powered Intelligence.</p>
+                <p>ZIPI Innovation delivers enterprise-grade Ground Control Systems with indigenous Linux OS, AES-256 encryption, dual-band RF communication, and AI-powered mission intelligence. Complete drone ecosystems engineered for defense, agriculture, and critical infrastructure.</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">
+                        EXPLORE TECHNOLOGY →
+                    </a>
+                    <a href="contact.html" class="btn btn-outline">
+                        REQUEST DEMO
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="drone-system">
+                    <!-- Radar Display -->
+                    <div class="radar-display">
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-circle"></div>
+                        <div class="radar-sweep"></div>
+                    </div>
+
+                    <!-- 3D Drone -->
+                    <div class="drone-3d">
+                        <div class="drone-arm-3d arm-top-left"></div>
+                        <div class="drone-arm-3d arm-top-right"></div>
+                        <div class="drone-arm-3d arm-bottom-left"></div>
+                        <div class="drone-arm-3d arm-bottom-right"></div>
+                        
+                        <div class="motor-3d motor-top-left"></div>
+                        <div class="motor-3d motor-top-right"></div>
+                        <div class="motor-3d motor-bottom-left"></div>
+                        <div class="motor-3d motor-bottom-right"></div>
+                        
+                        <div class="propeller-3d prop-top-left"></div>
+                        <div class="propeller-3d prop-top-right"></div>
+                        <div class="propeller-3d prop-bottom-left"></div>
+                        <div class="propeller-3d prop-bottom-right"></div>
+                        
+                        <div class="drone-body-3d"></div>
+                    </div>
+
+                    <!-- Data Streams -->
+                    <div class="data-stream stream-1"></div>
+                    <div class="data-stream stream-2"></div>
+                    <div class="data-stream stream-3"></div>
+                    <div class="data-stream stream-4"></div>
+
+                    <!-- Technical Stats -->
+                    <div class="tech-stats stat-1">SIGNAL: 98%</div>
+                    <div class="tech-stats stat-2">LATENCY: 28ms</div>
+                    <div class="tech-stats stat-3">RANGE: 25km</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
     <div class="container">
-        <div class="logo-container">
-            <div class="logo-mark"></div>
-            <div class="logo-text">
-                <div class="logo">ZIPI</div>
-                <div class="logo-sub">Innovation</div>
-            </div>
-        </div>
-
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#about">Technology</a></li>
-            <li><a href="#contact" class="nav-cta">Contact</a></li>
-        </ul>
-    </div>
-</nav>
-
-<!-- ================= HERO ================= -->
-<section class="hero" id="home">
-    <div class="hero-content">
-
-        <div class="hero-text">
-            <div class="hero-badge">
-                Indigenous Drone Technology
-            </div>
-
-            <h1>
-                Advanced <span class="gradient-text">Ground Control</span>
-                Systems
-            </h1>
-
-            <div class="subtitle">
-                Next Generation UAV Operations Platform
-            </div>
-
-            <p>
-                ZIPI Innovation develops indigenous drone and ground control
-                solutions enabling secure, reliable and scalable UAV
-                operations across defense, industrial and civil domains.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#products" class="btn btn-primary">
-                    Explore Products
-                </a>
-                <a href="#contact" class="btn btn-outline">
-                    Request Demo
-                </a>
-            </div>
-        </div>
-
-        <!-- HERO VISUAL -->
-        <div class="hero-visual">
-            <div class="drone-system">
-
-                <div class="radar-display">
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-circle"></div>
-                    <div class="radar-sweep"></div>
+        <div class="stats-bar">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1ST</div>
+                    <div class="stat-label">Indigenous GCS</div>
                 </div>
-
-                <div class="drone-3d">
-                    <div class="drone-body-3d"></div>
-
-                    <div class="drone-arm-3d arm-top-left"></div>
-                    <div class="drone-arm-3d arm-top-right"></div>
-                    <div class="drone-arm-3d arm-bottom-left"></div>
-                    <div class="drone-arm-3d arm-bottom-right"></div>
-
-                    <div class="motor-3d motor-top-left"></div>
-                    <div class="motor-3d motor-top-right"></div>
-                    <div class="motor-3d motor-bottom-left"></div>
-                    <div class="motor-3d motor-bottom-right"></div>
-
-                    <div class="propeller-3d prop-top-left"></div>
-                    <div class="propeller-3d prop-top-right"></div>
-                    <div class="propeller-3d prop-bottom-left"></div>
-                    <div class="propeller-3d prop-bottom-right"></div>
+                <div class="stat-item">
+                    <div class="stat-number">25+</div>
+                    <div class="stat-label">Kilometer Range</div>
                 </div>
-
-                <div class="tech-stats stat-1">LINK: STABLE</div>
-                <div class="tech-stats stat-2">ALT: 120M</div>
-                <div class="tech-stats stat-3">GPS LOCK</div>
-
+                <div class="stat-item">
+                    <div class="stat-number">256</div>
+                    <div class="stat-label">AES Encryption</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Made in India</div>
+                </div>
             </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ================= STATS ================= -->
-<div class="stats-bar">
-    <div class="stats-grid">
-        <div class="stat-item">
-            <div class="stat-number">50+</div>
-            <div class="stat-label">Deployments</div>
-        </div>
-
-        <div class="stat-item">
-            <div class="stat-number">99%</div>
-            <div class="stat-label">Link Stability</div>
-        </div>
-
-        <div class="stat-item">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">Operations</div>
-        </div>
-
-        <div class="stat-item">
-            <div class="stat-number">10+</div>
-            <div class="stat-label">Industries</div>
         </div>
     </div>
-</div>
 
-<!-- ================= PRODUCTS ================= -->
-<section id="products">
-    <div class="container">
-
-        <div class="section-header">
-            <div class="section-label">Our Solutions</div>
-            <h2>Product Portfolio</h2>
-            <p>
-                Indigenous UAV control and mission systems engineered for
-                performance, reliability and operational superiority.
-            </p>
-        </div>
-
-        <div class="products-grid">
-
-            <div class="product-card">
-                <div class="product-image">
-                    Ground Control Station
+    <!-- Products Section -->
+    <section id="products">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">PRODUCT ECOSYSTEM</div>
+                <h2>Advanced Drone Systems</h2>
+                <p>Mission-critical platforms engineered for defense-grade reliability, precision agriculture, infrastructure monitoring, and tactical operations.</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card reveal" onclick="window.location.href='product-gcs.html'">
+                    <div class="product-image">
+                        <svg class="product-svg" viewBox="0 0 200 200">
+                            <rect x="60" y="80" width="80" height="40" fill="url(#grad1)" rx="20"/>
+                            <rect x="85" y="95" width="30" height="10" fill="#06b6d4" rx="5"/>
+                            <line x1="70" y1="100" x2="50" y2="80" stroke="#64748b" stroke-width="4"/>
+                            <line x1="130" y1="100" x2="150" y2="80" stroke="#64748b" stroke-width="4"/>
+                            <circle cx="50" cy="80" r="12" fill="#334155" stroke="#06b6d4" stroke-width="2"/>
+                            <circle cx="150" cy="80" r="12" fill="#334155" stroke="#06b6d4" stroke-width="2"/>
+                            <rect x="90" y="50" width="4" height="30" fill="#f59e0b" rx="2"/>
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#334155;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-tag">FLAGSHIP</div>
+                        <h3>ZIPI-IOX Controller</h3>
+                        <p>Indigenous GCS platform with secure Linux OS, dual-band encrypted RF, and ground-based AI intelligence. 25km+ range with military-grade security.</p>
+                        <div class="tech-specs">
+                            <span class="spec-badge">AES-256</span>
+                            <span class="spec-badge">1080p HD</span>
+                            <span class="spec-badge">25km+</span>
+                            <span class="spec-badge">Linux OS</span>
+                        </div>
+                        <a href="product-gcs.html" class="product-link">TECHNICAL DETAILS →</a>
+                    </div>
                 </div>
-                <div class="product-content">
-                    <h3>Ground Control System</h3>
-                    <p>
-                        Advanced real-time UAV monitoring and mission control
-                        platform for multi-drone operations.
-                    </p>
+
+                <div class="product-card reveal" onclick="window.location.href='product-tricopter.html'">
+                    <div class="product-image">
+                        <svg class="product-svg" viewBox="0 0 200 200">
+                            <ellipse cx="100" cy="100" rx="30" ry="15" fill="url(#grad2)"/>
+                            <line x1="100" y1="100" x2="70" y2="70" stroke="#64748b" stroke-width="3"/>
+                            <line x1="100" y1="100" x2="130" y2="70" stroke="#64748b" stroke-width="3"/>
+                            <line x1="100" y1="100" x2="100" y2="130" stroke="#64748b" stroke-width="3"/>
+                            <circle cx="70" cy="70" r="15" fill="#10b981" opacity="0.3"/>
+                            <circle cx="130" cy="70" r="15" fill="#10b981" opacity="0.3"/>
+                            <circle cx="100" cy="130" r="15" fill="#10b981" opacity="0.3"/>
+                            <defs>
+                                <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#059669;stop-opacity:0.8" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-tag">EFFICIENT</div>
+                        <h3>Tricopter Platform</h3>
+                        <p>Advanced 3-motor VTOL with 25% power efficiency gain, 360° servo-controlled yaw, 10kg payload capacity, and 3-hour loiter time.</p>
+                        <div class="tech-specs">
+                            <span class="spec-badge">10kg Payload</span>
+                            <span class="spec-badge">3hr Loiter</span>
+                            <span class="spec-badge">50km Range</span>
+                        </div>
+                        <a href="product-tricopter.html" class="product-link">TECHNICAL DETAILS →</a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal" onclick="window.location.href='product-nano.html'">
+                    <div class="product-image">
+                        <svg class="product-svg" viewBox="0 0 200 200">
+                            <rect x="85" y="95" width="30" height="10" fill="#3b82f6" rx="5"/>
+                            <line x1="90" y1="100" x2="80" y2="90" stroke="#475569" stroke-width="2"/>
+                            <line x1="110" y1="100" x2="120" y2="90" stroke="#475569" stroke-width="2"/>
+                            <line x1="90" y1="100" x2="80" y2="110" stroke="#475569" stroke-width="2"/>
+                            <line x1="110" y1="100" x2="120" y2="110" stroke="#475569" stroke-width="2"/>
+                            <circle cx="80" cy="90" r="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+                            <circle cx="120" cy="90" r="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+                            <circle cx="80" cy="110" r="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+                            <circle cx="120" cy="110" r="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-tag">MICRO UAV</div>
+                        <h3>ZIPI Nano Drone</h3>
+                        <p>Ultra-compact 1.5" FPV platform for indoor reconnaissance, confined space inspection, and tactical training operations.</p>
+                        <div class="tech-specs">
+                            <span class="spec-badge">1.5" Frame</span>
+                            <span class="spec-badge">Indoor</span>
+                            <span class="spec-badge">HD Camera</span>
+                        </div>
+                        <a href="product-nano.html" class="product-link">TECHNICAL DETAILS →</a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal" onclick="window.location.href='product-cinewhoop.html'">
+                    <div class="product-image">
+                        <svg class="product-svg" viewBox="0 0 200 200">
+                            <circle cx="100" cy="100" r="60" fill="none" stroke="#475569" stroke-width="3" opacity="0.5"/>
+                            <rect x="80" y="90" width="40" height="20" fill="url(#grad3)" rx="10"/>
+                            <circle cx="100" cy="100" r="8" fill="#f59e0b"/>
+                            <line x1="90" y1="100" x2="70" y2="80" stroke="#64748b" stroke-width="3"/>
+                            <line x1="110" y1="100" x2="130" y2="80" stroke="#64748b" stroke-width="3"/>
+                            <defs>
+                                <linearGradient id="grad3">
+                                    <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.8" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-tag">CINEMATIC</div>
+                        <h3>ZIPI Cinewhoop</h3>
+                        <p>Professional 4.5" cinematic FPV with protected propellers, 4K video capability, and advanced gimbal stabilization.</p>
+                        <div class="tech-specs">
+                            <span class="spec-badge">4K Video</span>
+                            <span class="spec-badge">Prop Guards</span>
+                            <span class="spec-badge">Gimbal</span>
+                        </div>
+                        <a href="product-cinewhoop.html" class="product-link">TECHNICAL DETAILS →</a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal" onclick="window.location.href='product-defense.html'">
+                    <div class="product-image">
+                        <svg class="product-svg" viewBox="0 0 200 200">
+                            <polygon points="100,60 140,100 100,140 60,100" fill="none" stroke="#ef4444" stroke-width="3"/>
+                            <rect x="80" y="90" width="40" height="20" fill="#1e293b" rx="10"/>
+                            <circle cx="100" cy="100" r="5" fill="#ef4444"/>
+                            <path d="M 100 80 L 110 90 L 100 100 L 90 90 Z" fill="#ef4444" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-tag">TACTICAL</div>
+                        <h3>Defense Systems</h3>
+                        <p>Military-grade UAV platforms with encrypted communications, thermal imaging, and long-range surveillance capabilities.</p>
+                        <div class="tech-specs">
+                            <span class="spec-badge">Encrypted</span>
+                            <span class="spec-badge">Thermal</span>
+                            <span class="spec-badge">Tactical</span>
+                        </div>
+                        <a href="product-defense.html" class="product-link">TECHNICAL DETAILS →</a>
+                    </div>
+                </div>
+
+                <div class="product-card reveal" onclick="window.location.href='product-software.html'">
+                    <div class="product-image">
+                        <svg class="product-svg" viewBox="0 0 200 200">
+                            <rect x="60" y="60" width="80" height="60" fill="#1e293b" rx="5" stroke="#06b6d4" stroke-width="2"/>
+                            <line x1="70" y1="75" x2="120" y2="75" stroke="#06b6d4" stroke-width="2"/>
+                            <line x1="70" y1="90" x2="110" y2="90" stroke="#3b82f6" stroke-width="2"/>
+                            <line x1="70" y1="105" x2="130" y2="105" stroke="#10b981" stroke-width="2"/>
+                            <circle cx="150" cy="80" r="3" fill="#06b6d4"/>
+                            <circle cx="150" cy="100" r="3" fill="#3b82f6"/>
+                        </svg>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-tag">SOFTWARE</div>
+                        <h3>Ground Software Suite</h3>
+                        <p>Proprietary mission planning software with AI analytics, fleet orchestration, and comprehensive telemetry systems.</p>
+                        <div class="tech-specs">
+                            <span class="spec-badge">AI Analytics</span>
+                            <span class="spec-badge">Fleet Control</span>
+                            <span class="spec-badge">Multi-Platform</span>
+                        </div>
+                        <a href="product-software.html" class="product-link">TECHNICAL DETAILS →</a>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="product-card">
-                <div class="product-image">
-                    UAV Platform
-                </div>
-                <div class="product-content">
-                    <h3>Autonomous UAV</h3>
-                    <p>
-                        Indigenous UAV platforms optimized for endurance,
-                        payload capacity and mission flexibility.
-                    </p>
+    <!-- Technology Architecture -->
+    <section id="technology" class="architecture-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-label">TECHNICAL ARCHITECTURE</div>
+                <h2>Six-Layer Technology Stack</h2>
+                <p>Enterprise-grade architecture powering India's most advanced Ground Control Systems with military-level security and real-time performance.</p>
+            </div>
+            <div class="architecture-diagram reveal">
+                <div class="arch-stack">
+                    <div class="arch-layer">
+                        <div>
+                            <div class="arch-layer-label">LAYER 01</div>
+                            <h3>User Interface</h3>
+                        </div>
+                        <div>
+                            <p>Real-time mission control with HD video streaming, telemetry displays, AI alerts, and multi-language voice command integration.</p>
+                            <div class="layer-tags">
+                                <span class="layer-tag">MISSION_PLANNING</span>
+                                <span class="layer-tag">LIVE_VIDEO</span>
+                                <span class="layer-tag">TELEMETRY</span>
+                                <span class="layer-tag">VOICE_CMD</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div>
+                            <div class="arch-layer-label">LAYER 02</div>
+                            <h3>AI/ML Intelligence</h3>
+                        </div>
+                        <div>
+                            <p>Ground-based AI running YOLOv8, YOLO-NAS, SegFormer for detection and tracking. Dual-stream ensures AI never compromises flight control.</p>
+                            <div class="layer-tags">
+                                <span class="layer-tag">YOLOV8</span>
+                                <span class="layer-tag">DEEPTRACK</span>
+                                <span class="layer-tag">SEGMENTATION</span>
+                                <span class="layer-tag">ANALYTICS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div>
+                            <div class="arch-layer-label">LAYER 03</div>
+                            <h3>Security & Encryption</h3>
+                        </div>
+                        <div>
+                            <p>Military-grade AES-256 encryption, secure boot, hardware security vault, and FHSS anti-jamming. Every packet authenticated.</p>
+                            <div class="layer-tags">
+                                <span class="layer-tag">AES_256</span>
+                                <span class="layer-tag">SECURE_BOOT</span>
+                                <span class="layer-tag">FHSS</span>
+                                <span class="layer-tag">KEY_VAULT</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div>
+                            <div class="arch-layer-label">LAYER 04</div>
+                            <h3>Communication</h3>
+                        </div>
+                        <div>
+                            <p>Dual-band RF: 2.4/5.8GHz for HD video, 800-900MHz sub-GHz for long-range failsafe. 100-300 freq hops/sec mesh network.</p>
+                            <div class="layer-tags">
+                                <span class="layer-tag">2.4_5.8_GHZ</span>
+                                <span class="layer-tag">SUB_GHZ</span>
+                                <span class="layer-tag">RF_MESH</span>
+                                <span class="layer-tag">AUTO_FAILSAFE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div>
+                            <div class="arch-layer-label">LAYER 05</div>
+                            <h3>Operating System</h3>
+                        </div>
+                        <div>
+                            <p>Custom Linux (IOX) optimized for real-time drone control. Secure, low-latency, field-hardened with OTA updates and device orchestration.</p>
+                            <div class="layer-tags">
+                                <span class="layer-tag">LINUX_KERNEL</span>
+                                <span class="layer-tag">REALTIME_OS</span>
+                                <span class="layer-tag">OTA_UPDATE</span>
+                                <span class="layer-tag">DEVICE_MGR</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arch-layer">
+                        <div>
+                            <div class="arch-layer-label">LAYER 06</div>
+                            <h3>Hardware</h3>
+                        </div>
+                        <div>
+                            <p>Field-optimized with Hall-effect CNC gimbals, 1000-nit display, IP-rated enclosure, and long-range antennas for extreme conditions.</p>
+                            <div class="layer-tags">
+                                <span class="layer-tag">CNC_GIMBALS</span>
+                                <span class="layer-tag">1000_NIT</span>
+                                <span class="layer-tag">IP_RATED</span>
+                                <span class="layer-tag">LONG_RANGE_RF</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="product-card">
-                <div class="product-image">
-                    Payload Systems
-                </div>
-                <div class="product-content">
-                    <h3>Smart Payloads</h3>
-                    <p>
-                        Modular payload systems supporting surveillance,
-                        mapping and industrial inspection.
-                    </p>
-                </div>
+    <!-- CTA -->
+    <section style="background: rgba(6, 182, 212, 0.05); border-top: 1px solid rgba(6, 182, 212, 0.1); border-bottom: 1px solid rgba(6, 182, 212, 0.1); text-align: center; padding: 6rem 3rem;">
+        <div class="container">
+            <div class="section-label" style="margin-bottom: 1.5rem;">READY TO DEPLOY</div>
+            <h2 style="font-size: 3rem; margin-bottom: 1.5rem; color: var(--slate-50);">Transform Your Drone Operations</h2>
+            <p style="font-size: 1.2rem; color: var(--slate-400); margin-bottom: 3rem; max-width: 700px; margin-left: auto; margin-right: auto;">Deploy enterprise-grade Ground Control Systems with indigenous technology designed for mission-critical operations.</p>
+            <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                <a href="contact.html" class="btn btn-primary">REQUEST DEMONSTRATION</a>
+                <a href="#products" class="btn btn-outline">EXPLORE PRODUCTS</a>
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- ================= FOOTER ================= -->
-
-
-<!-- Example placeholder -->
-<nav>
-    <div class="container">
-        <div class="logo">ZIPI</div>
-    </div>
-</nav>
-
-<section class="hero">
-    <div class="hero-content">
-        <div>
-            <h1>Advanced Ground Control Systems</h1>
-            <p>Indigenous Drone Technology</p>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>ZIPI INNOVATION</h4>
+                <p>India's first indigenous Ground Control System platform. Advanced drone technology with complete in-house design and development.</p>
+                <p style="margin-top: 1.5rem; color: var(--slate-500);">📍 Sambalpur, Odisha, India</p>
+            </div>
+            <div class="footer-section">
+                <h4>PRODUCTS</h4>
+                <ul>
+                    <li><a href="product-gcs.html">ZIPI-IOX Controller</a></li>
+                    <li><a href="product-tricopter.html">Tricopter Platform</a></li>
+                    <li><a href="product-nano.html">Nano Drone</a></li>
+                    <li><a href="product-cinewhoop.html">Cinewhoop</a></li>
+                    <li><a href="product-defense.html">Defense Systems</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>COMPANY</h4>
+                <ul>
+                    <li><a href="#technology">Technology</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="terms.html">Terms</a></li>
+                    <li><a href="privacy.html">Privacy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>CONNECT</h4>
+                <ul>
+                    <li><a href="mailto:info@zipidrone.com">info@zipidrone.com</a></li>
+                    <li><a href="mailto:support@zipidrone.com">support@zipidrone.com</a></li>
+                    <li><a href="tel:+918260609541">+91 8260 609 541</a></li>
+                    <li><a href="https://zipidrone.com">zipidrone.com</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</section>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ZIPI Innovation Pvt. Ltd. All rights reserved. Designed & Engineered in India.</p>
+        </div>
+    </footer>
 
-<!-- ===================================================== -->
-<footer style="text-align:center;padding:3rem;color:#64748b;">
-    © 2026 ZIPI Innovation. All rights reserved.
-</footer>
-<!-- JS -->
-<script src="assets/js/main.js"></script>
+    <!-- WhatsApp -->
+    <a href="https://wa.me/918260609541" target="_blank" class="whatsapp-btn" title="Chat on WhatsApp">💬</a>
 
+    <script>
+        // Scroll Reveal
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        reveal();
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZIPI-IOX Controller - Indigenous Ground Control System | ZIPI Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-950: #020617;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-700: #334155;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-300: #cbd5e1;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --slate-50: #f8fafc;
+            --cyan-500: #06b6d4;
+            --cyan-400: #22d3ee;
+            --blue-600: #2563eb;
+            --blue-500: #3b82f6;
+            --emerald-500: #10b981;
+            --amber-500: #f59e0b;
+            --red-500: #ef4444;
+            --gradient-tech: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            --gradient-accent: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+            background: var(--slate-950);
+            color: var(--slate-200);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--slate-100);
+            text-decoration: none;
+        }
+
+        nav a {
+            color: var(--slate-300);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--cyan-400);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        /* Product Hero */
+        .product-hero {
+            padding: 10rem 3rem 6rem;
+            background: var(--gradient-tech);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .product-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--cyan-400);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .product-hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--slate-50);
+            letter-spacing: -0.02em;
+        }
+
+        .product-tagline {
+            font-size: 1.5rem;
+            color: var(--cyan-400);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .product-hero p {
+            font-size: 1.1rem;
+            color: var(--slate-400);
+            line-height: 1.8;
+            margin-bottom: 3rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.1rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--slate-950);
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cyan-400);
+            border: 1px solid rgba(6, 182, 212, 0.5);
+        }
+
+        .btn-outline:hover {
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        /* Controller Visual */
+        .controller-display {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controller-3d {
+            width: 450px;
+            height: 280px;
+            background: linear-gradient(135deg, var(--slate-700), var(--slate-800));
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.6),
+                inset 0 2px 20px rgba(6, 182, 212, 0.1);
+            border: 2px solid rgba(6, 182, 212, 0.2);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotateX(5deg); }
+            50% { transform: translateY(-20px) rotateX(5deg); }
+        }
+
+        .controller-screen {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 140px;
+            background: var(--slate-950);
+            border-radius: 10px;
+            border: 3px solid var(--slate-600);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .screen-glow {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(6, 182, 212, 0.2), transparent);
+            animation: pulse-screen 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-screen {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .controller-stick {
+            position: absolute;
+            width: 50px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--emerald-500), #059669);
+            border-radius: 25px 25px 50% 50%;
+            bottom: 40px;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .stick-left { left: 80px; }
+        .stick-right { right: 80px; }
+
+        .antenna {
+            position: absolute;
+            width: 10px;
+            height: 100px;
+            background: linear-gradient(180deg, var(--amber-500), #d97706);
+            border-radius: 5px;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.6);
+        }
+
+        .antenna::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--amber-500);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.8);
+            animation: pulse-antenna 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-antenna {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.3); }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--cyan-400);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--slate-50);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--slate-400);
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        /* USP Section */
+        .usp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .usp-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 2.5rem;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .usp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .usp-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(6, 182, 212, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .usp-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .usp-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .usp-card h3 {
+            font-size: 1.3rem;
+            color: var(--slate-100);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .usp-card p {
+            color: var(--slate-400);
+            line-height: 1.7;
+        }
+
+        /* Features Section */
+        .features-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-block {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 3rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--cyan-500);
+        }
+
+        .feature-block h3 {
+            font-size: 1.6rem;
+            color: var(--slate-100);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-block h3 span {
+            font-size: 2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.8rem 0;
+            color: var(--slate-300);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: '▸';
+            color: var(--cyan-400);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 2.5rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .benefit-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .benefit-content h3 {
+            font-size: 1.3rem;
+            color: var(--slate-100);
+            margin-bottom: 0.8rem;
+        }
+
+        .benefit-content p {
+            color: var(--slate-400);
+            line-height: 1.7;
+        }
+
+        /* Technical Specifications */
+        .specs-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .spec-category {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 2.5rem;
+            border-radius: 8px;
+        }
+
+        .spec-category h3 {
+            font-size: 1.4rem;
+            color: var(--cyan-400);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(6, 182, 212, 0.3);
+            font-weight: 600;
+        }
+
+        .spec-table {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.05);
+        }
+
+        .spec-row:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--slate-300);
+            flex: 1;
+        }
+
+        .spec-value {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--slate-400);
+            text-align: right;
+            flex: 1;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 3rem;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--cyan-400);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        .comparison-table td {
+            color: var(--slate-300);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .check-mark {
+            color: var(--emerald-500);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .cross-mark {
+            color: var(--red-500);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Use Cases */
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .use-case-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .use-case-header {
+            padding: 2rem;
+            background: var(--gradient-tech);
+            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .use-case-header h3 {
+            font-size: 1.5rem;
+            color: var(--slate-100);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .use-case-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--cyan-400);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .use-case-body {
+            padding: 2rem;
+        }
+
+        .use-case-body p {
+            color: var(--slate-400);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .use-case-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--cyan-500);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--slate-500);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.3rem;
+            color: var(--cyan-400);
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 8px;
+            padding: 4rem;
+            text-align: center;
+            margin-top: 6rem;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: var(--slate-50);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--slate-400);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--slate-900);
+            border-top: 1px solid rgba(6, 182, 212, 0.1);
+            padding: 3rem 3rem 1.5rem;
+            margin-top: 6rem;
+            text-align: center;
+            color: var(--slate-500);
+        }
+
+        /* WhatsApp */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .usp-grid { grid-template-columns: 1fr; }
+            .features-showcase { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .specs-container { grid-template-columns: 1fr; }
+            .use-cases-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .product-hero h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2rem; }
+            .controller-3d { width: 350px; height: 220px; }
+            .container { padding: 0 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index-pro.html" class="logo">ZIPI</a>
+            <a href="index-pro.html" style="color: var(--cyan-400);">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Product Hero -->
+    <section class="product-hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="product-badge">
+                        🏆 FLAGSHIP PRODUCT · INDIGENOUS TECHNOLOGY
+                    </div>
+                    <h1>ZIPI-IOX Controller</h1>
+                    <p class="product-tagline">India's First Indigenous Ground Control System</p>
+                    <p>Military-grade GCS platform featuring secure Linux OS, dual-band encrypted RF communication, and ground-based AI intelligence. Engineered for mission-critical operations across defense, agriculture, infrastructure, and emergency response sectors.</p>
+                    <div class="cta-group">
+                        <a href="#specifications" class="btn btn-primary">VIEW SPECIFICATIONS</a>
+                        <a href="../contact.html" class="btn btn-outline">REQUEST QUOTE</a>
+                    </div>
+                </div>
+                <div class="controller-display">
+                    <div class="controller-3d">
+                        <div class="antenna"></div>
+                        <div class="controller-screen">
+                            <div class="screen-glow"></div>
+                        </div>
+                        <div class="controller-stick stick-left"></div>
+                        <div class="controller-stick stick-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unique Selling Propositions -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">COMPETITIVE ADVANTAGES</span>
+                <h2>Why ZIPI-IOX Stands Apart</h2>
+                <p>Revolutionary capabilities that make ZIPI-IOX the most advanced indigenous Ground Control System in India.</p>
+            </div>
+            <div class="usp-grid">
+                <div class="usp-card">
+                    <div class="usp-icon">🇮🇳</div>
+                    <h3>100% Indigenous Technology</h3>
+                    <p>First and only GCS platform designed, developed, and manufactured entirely in India. No dependency on foreign technology, ensuring complete sovereignty and continuous upgrades tailored to Indian operational requirements.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">🤖</div>
+                    <h3>Ground-Based AI Intelligence</h3>
+                    <p>Revolutionary architecture runs AI on ground station, not drone. Any drone becomes intelligent, AI upgrades are instant, and no hardware becomes obsolete. Dual-stream ensures AI never compromises flight safety.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">🔐</div>
+                    <h3>Military-Grade Security</h3>
+                    <p>AES-256 encryption, secure boot, hardware security vault, and FHSS anti-jamming technology. Only GCS in India certified for defense-grade operations with encrypted command and control.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">📡</div>
+                    <h3>Dual-Band RF System</h3>
+                    <p>Unique dual-band architecture: 2.4/5.8GHz for HD video + 800-900MHz sub-GHz for long-range failsafe. Auto-switching ensures uninterrupted operations with 25+ km validated range.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">🌐</div>
+                    <h3>Platform Agnostic</h3>
+                    <p>Controls ANY drone - any brand, any hardware. One system manages single units or entire fleets. Unlike proprietary systems, ZIPI-IOX works with your existing drone infrastructure.</p>
+                </div>
+                <div class="usp-card">
+                    <div class="usp-icon">⚡</div>
+                    <h3>Ultra-Low Latency</h3>
+                    <p>True 25-30ms end-to-end latency from ground to air. Hardware-accelerated video decode and optimized Linux kernel ensure real-time responsiveness critical for tactical operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section style="background: rgba(15, 23, 42, 0.3);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">CORE CAPABILITIES</span>
+                <h2>Comprehensive Feature Set</h2>
+                <p>Advanced features engineered for professional drone operations across defense, commercial, and industrial sectors.</p>
+            </div>
+            <div class="features-showcase">
+                <div class="feature-block">
+                    <h3><span>🛡️</span> Security Architecture</h3>
+                    <ul class="feature-list">
+                        <li>AES-256 bit military-grade encryption for all data streams</li>
+                        <li>Secure boot with hardware-backed key storage vault</li>
+                        <li>FHSS (Frequency Hopping Spread Spectrum) anti-jamming</li>
+                        <li>100-300 frequency hops per second across sub-GHz bands</li>
+                        <li>Device authentication and session management</li>
+                        <li>Encrypted OTA firmware updates with rollback protection</li>
+                        <li>Isolated services with minimal attack surface</li>
+                    </ul>
+                </div>
+
+                <div class="feature-block">
+                    <h3><span>📡</span> Communication System</h3>
+                    <ul class="feature-list">
+                        <li>Primary Link: 2.4GHz + 5.8GHz adaptive dual-band</li>
+                        <li>Fallback Link: 800-900MHz sub-GHz long-range</li>
+                        <li>Auto-forming, auto-healing RF mesh network</li>
+                        <li>25+ km validated range with 8dBi antennas</li>
+                        <li>Multiple drone relay capabilities for extended range</li>
+                        <li>Region-aware frequency compliance (India, US, EU)</li>
+                        <li>Real-time signal strength monitoring and failover</li>
+                    </ul>
+                </div>
+
+                <div class="feature-block">
+                    <h3><span>🤖</span> AI/ML Intelligence</h3>
+                    <ul class="feature-list">
+                        <li>YOLOv8, YOLO-NAS for real-time object detection</li>
+                        <li>SegFormer semantic segmentation for terrain analysis</li>
+                        <li>DeepSORT multi-object tracking across frames</li>
+                        <li>Dual-stream architecture: 1080p flight + 4K AI analysis</li>
+                        <li>Ground-based processing ensures zero drone overhead</li>
+                        <li>Custom model deployment and training pipeline</li>
+                        <li>Real-time alerts and anomaly detection</li>
+                    </ul>
+                </div>
+
+                <div class="feature-block">
+                    <h3><span>🐧</span> Operating System</h3>
+                    <ul class="feature-list">
+                        <li>Custom Linux kernel (IOX) optimized for real-time control</li>
+                        <li>Hardware-accelerated GPU video decoding pipeline</li>
+                        <li>Multi-language UI with voice command integration</li>
+                        <li>OTA updates with A/B partition failsafe</li>
+                        <li>Comprehensive device health monitoring and logging</li>
+                        <li>Fleet orchestration for multi-drone operations</li>
+                        <li>Mission planning and waypoint navigation system</li>
+                    </ul>
+                </div>
+
+                <div class="feature-block">
+                    <h3><span>🎮</span> Hardware Excellence</h3>
+                    <ul class="feature-list">
+                        <li>Hall-effect CNC precision gimbals (no drift)</li>
+                        <li>1000-nit high-brightness display (sunlight readable)</li>
+                        <li>IP54 rated enclosure for dust and water resistance</li>
+                        <li>6-8 hour battery life with hot-swap capability</li>
+                        <li>Operating temperature: -20°C to +60°C</li>
+                        <li>Ergonomic design with customizable button mapping</li>
+                        <li>Dimensions: 295 × 123 × 50 mm | Weight: <200g</li>
+                    </ul>
+                </div>
+
+                <div class="feature-block">
+                    <h3><span>📊</span> Data & Analytics</h3>
+                    <ul class="feature-list">
+                        <li>Real-time telemetry logging and mission recording</li>
+                        <li>Flight path visualization and 3D mapping</li>
+                        <li>Comprehensive mission replay and analysis tools</li>
+                        <li>Export formats: KML, GeoJSON, CSV, video</li>
+                        <li>Integration APIs for enterprise systems</li>
+                        <li>Cloud sync for fleet-wide data aggregation</li>
+                        <li>Compliance reporting for defense and government</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">OPERATIONAL ADVANTAGES</span>
+                <h2>Measurable Benefits</h2>
+                <p>Quantifiable improvements in safety, efficiency, cost, and operational capability.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-number">01</div>
+                    <div class="benefit-content">
+                        <h3>Enhanced Safety & Reliability</h3>
+                        <p>Dual-stream architecture physically separates flight-critical data from AI processing. Even if AI crashes, drone control remains unaffected. Encrypted failsafe ensures safe return-to-home in any scenario. 99.9% uptime validated in field operations.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-number">02</div>
+                    <div class="benefit-content">
+                        <h3>Reduced Total Cost of Ownership</h3>
+                        <p>Ground-based AI means any inexpensive drone becomes intelligent. No need to buy expensive "smart drones" - upgrade existing fleet. AI improvements deployed via software update, eliminating hardware obsolescence. 60% lower TCO over 5 years.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-number">03</div>
+                    <div class="benefit-content">
+                        <h3>Operational Scalability</h3>
+                        <p>One operator can manage multiple drones simultaneously. Fleet orchestration enables coordinated missions across large areas. Mesh network extends range beyond line-of-sight. Scale from single drone to enterprise fleet without infrastructure changes.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-number">04</div>
+                    <div class="benefit-content">
+                        <h3>Mission Success Rate</h3>
+                        <p>Real-time AI alerts reduce pilot oversight errors by 90%. Automated coverage analysis ensures no gaps in agricultural spraying or surveillance. Predictive maintenance prevents mid-mission failures. 98% mission completion rate in production deployments.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-number">05</div>
+                    <div class="benefit-content">
+                        <h3>Regulatory Compliance</h3>
+                        <p>Built-in DGCA compliance for Indian operations. Comprehensive flight logging for audit trails. Geo-fencing and no-fly zone enforcement. Defense-grade security meets government procurement standards. Fully indigenous - no foreign dependency issues.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-number">06</div>
+                    <div class="benefit-content">
+                        <h3>Future-Proof Technology</h3>
+                        <p>Software-defined architecture enables continuous upgrades. New AI models deployed without hardware changes. OTA updates add features and improve performance. 10+ year product lifecycle with ongoing support and enhancement roadmap.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section id="specifications" style="background: rgba(15, 23, 42, 0.3);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">TECHNICAL DETAILS</span>
+                <h2>Complete Specifications</h2>
+                <p>Detailed technical specifications for procurement, integration, and operational planning.</p>
+            </div>
+            <div class="specs-container">
+                <div class="spec-category">
+                    <h3>Hardware Specifications</h3>
+                    <div class="spec-table">
+                        <div class="spec-row">
+                            <span class="spec-label">Dimensions</span>
+                            <span class="spec-value">295 × 123 × 50 mm</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Weight</span>
+                            <span class="spec-value">&lt; 200 grams</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Display</span>
+                            <span class="spec-value">1000 nits, sunlight readable</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Controls</span>
+                            <span class="spec-value">Hall-effect CNC gimbals</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Battery Life</span>
+                            <span class="spec-value">6-8 hours continuous</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Operating Temp</span>
+                            <span class="spec-value">-20°C to +60°C</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">IP Rating</span>
+                            <span class="spec-value">IP54 (dust/water resistant)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Build Material</span>
+                            <span class="spec-value">Aluminum alloy + ABS polymer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spec-category">
+                    <h3>RF Communication</h3>
+                    <div class="spec-table">
+                        <div class="spec-row">
+                            <span class="spec-label">Primary Bands</span>
+                            <span class="spec-value">2.4 GHz + 5.8 GHz</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Fallback Band</span>
+                            <span class="spec-value">800-900 MHz sub-GHz</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Standard Range</span>
+                            <span class="spec-value">Up to 5 km LOS</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Extended Range</span>
+                            <span class="spec-value">25+ km with 8 dBi antennas</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Latency</span>
+                            <span class="spec-value">25-30 ms real latency</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Frequency Hopping</span>
+                            <span class="spec-value">100-300 hops/second</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Max Data Rate</span>
+                            <span class="spec-value">40 Mbps (video + telemetry)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Mesh Network</span>
+                            <span class="spec-value">Auto-forming, auto-healing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spec-category">
+                    <h3>Video & AI Processing</h3>
+                    <div class="spec-table">
+                        <div class="spec-row">
+                            <span class="spec-label">Piloting Stream</span>
+                            <span class="spec-value">1080p @ 30fps (low latency)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">AI Analysis Stream</span>
+                            <span class="spec-value">4K @ 30fps (high detail)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Video Codec</span>
+                            <span class="spec-value">H.264/H.265 (hardware accel)</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">AI Models</span>
+                            <span class="spec-value">YOLOv8, YOLO-NAS, SegFormer</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Object Detection</span>
+                            <span class="spec-value">80+ classes, real-time</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Processing Unit</span>
+                            <span class="spec-value">GPU-accelerated inference</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Custom Models</span>
+                            <span class="spec-value">Deployable via OTA</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Recording</span>
+                            <span class="spec-value">Local + cloud storage</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spec-category">
+                    <h3>Security & Software</h3>
+                    <div class="spec-table">
+                        <div class="spec-row">
+                            <span class="spec-label">Operating System</span>
+                            <span class="spec-value">IOX Custom Linux</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Encryption</span>
+                            <span class="spec-value">AES-256 bit</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Authentication</span>
+                            <span class="spec-value">Hardware-backed key vault</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Secure Boot</span>
+                            <span class="spec-value">Verified boot chain</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Anti-Jamming</span>
+                            <span class="spec-value">FHSS + adaptive freq</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Updates</span>
+                            <span class="spec-value">Encrypted OTA with rollback</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">Multi-Language</span>
+                            <span class="spec-value">10+ languages, voice enabled</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-label">API Integration</span>
+                            <span class="spec-value">REST + WebSocket</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">COMPETITIVE ANALYSIS</span>
+                <h2>How ZIPI-IOX Compares</h2>
+                <p>Side-by-side comparison with international GCS platforms and proprietary drone systems.</p>
+            </div>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>ZIPI-IOX</th>
+                            <th>DJI Enterprise</th>
+                            <th>Skydio X2</th>
+                            <th>Open GCS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Indigenous Technology</td>
+                            <td><span class="check-mark">✓</span> 100% Indian</td>
+                            <td><span class="cross-mark">✗</span> China</td>
+                            <td><span class="cross-mark">✗</span> USA</td>
+                            <td><span class="cross-mark">✗</span> Mixed</td>
+                        </tr>
+                        <tr>
+                            <td>Military-Grade Encryption</td>
+                            <td><span class="check-mark">✓</span> AES-256</td>
+                            <td><span class="cross-mark">✗</span> Limited</td>
+                            <td><span class="check-mark">✓</span> Yes</td>
+                            <td><span class="cross-mark">✗</span> No</td>
+                        </tr>
+                        <tr>
+                            <td>Ground-Based AI</td>
+                            <td><span class="check-mark">✓</span> Yes</td>
+                            <td><span class="cross-mark">✗</span> Drone-based</td>
+                            <td><span class="cross-mark">✗</span> Drone-based</td>
+                            <td><span class="cross-mark">✗</span> No</td>
+                        </tr>
+                        <tr>
+                            <td>Dual-Stream Safety</td>
+                            <td><span class="check-mark">✓</span> Hardware separated</td>
+                            <td><span class="cross-mark">✗</span> Single stream</td>
+                            <td><span class="cross-mark">✗</span> Single stream</td>
+                            <td><span class="cross-mark">✗</span> No</td>
+                        </tr>
+                        <tr>
+                            <td>Any-Drone Compatibility</td>
+                            <td><span class="check-mark">✓</span> Universal</td>
+                            <td><span class="cross-mark">✗</span> DJI only</td>
+                            <td><span class="cross-mark">✗</span> Skydio only</td>
+                            <td><span class="check-mark">✓</span> Limited</td>
+                        </tr>
+                        <tr>
+                            <td>Range (Long-Range Mode)</td>
+                            <td><span class="check-mark">✓</span> 25+ km</td>
+                            <td>15 km</td>
+                            <td>10 km</td>
+                            <td>Variable</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-Drone Fleet Control</td>
+                            <td><span class="check-mark">✓</span> Built-in</td>
+                            <td>Add-on ($$$)</td>
+                            <td><span class="cross-mark">✗</span> Limited</td>
+                            <td>Manual</td>
+                        </tr>
+                        <tr>
+                            <td>Real-Time AI Inference</td>
+                            <td><span class="check-mark">✓</span> YOLOv8, NAS</td>
+                            <td>Basic CV</td>
+                            <td>Proprietary</td>
+                            <td><span class="cross-mark">✗</span> No</td>
+                        </tr>
+                        <tr>
+                            <td>Custom OS (Not Android)</td>
+                            <td><span class="check-mark">✓</span> Linux IOX</td>
+                            <td>Android</td>
+                            <td>Custom</td>
+                            <td>Desktop OS</td>
+                        </tr>
+                        <tr>
+                            <td>Price Range (USD)</td>
+                            <td>$3,500 - $5,000</td>
+                            <td>$2,500 (limited)</td>
+                            <td>$10,000+</td>
+                            <td>Free (limited)</td>
+                        </tr>
+                        <tr>
+                            <td>Government Certification</td>
+                            <td><span class="check-mark">✓</span> Indian DoD path</td>
+                            <td><span class="cross-mark">✗</span> Banned (India)</td>
+                            <td><span class="check-mark">✓</span> US only</td>
+                            <td><span class="cross-mark">✗</span> No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section style="background: rgba(15, 23, 42, 0.3);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">APPLICATIONS</span>
+                <h2>Real-World Deployment Scenarios</h2>
+                <p>Proven use cases with measurable outcomes across defense, agriculture, infrastructure, and emergency sectors.</p>
+            </div>
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-header">
+                        <div class="use-case-tag">DEFENSE & SECURITY</div>
+                        <h3>🛡️ Border Surveillance Operations</h3>
+                    </div>
+                    <div class="use-case-body">
+                        <p><strong>Challenge:</strong> Indian border security requires 24/7 surveillance across difficult terrain with secure communication and long endurance capabilities.</p>
+                        <p><strong>Solution:</strong> ZIPI-IOX enables continuous monitoring with encrypted RF, thermal imaging integration, 3-hour loiter capability, and multi-drone coordination for extended coverage.</p>
+                        <div class="use-case-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Coverage Increase</div>
+                                <div class="metric-value">400%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Detection Rate</div>
+                                <div class="metric-value">95%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Personnel Reduction</div>
+                                <div class="metric-value">60%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Operational Cost</div>
+                                <div class="metric-value">-40%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-header">
+                        <div class="use-case-tag">PRECISION AGRICULTURE</div>
+                        <h3>🌾 Automated Crop Spraying</h3>
+                    </div>
+                    <div class="use-case-body">
+                        <p><strong>Challenge:</strong> Manual spraying misses 10-15% of crop coverage, requires multiple operators, and lacks real-time quality validation.</p>
+                        <p><strong>Solution:</strong> ZIPI-IOX provides real-time AI-powered coverage analysis, automated flight planning, and fleet management allowing one operator to manage multiple spray drones simultaneously.</p>
+                        <div class="use-case-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Coverage Accuracy</div>
+                                <div class="metric-value">99.2%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Time Savings</div>
+                                <div class="metric-value">65%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Chemical Waste</div>
+                                <div class="metric-value">-30%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Yield Increase</div>
+                                <div class="metric-value">+18%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-header">
+                        <div class="use-case-tag">INFRASTRUCTURE</div>
+                        <h3>🏗️ Power Line Inspection</h3>
+                    </div>
+                    <div class="use-case-body">
+                        <p><strong>Challenge:</strong> Manual inspection of power infrastructure is dangerous, time-consuming, and often misses defects until failures occur.</p>
+                        <p><strong>Solution:</strong> AI-powered defect detection identifies anomalies in real-time. Automated flight paths ensure 100% coverage. Comprehensive reporting with GPS-tagged findings for maintenance planning.</p>
+                        <div class="use-case-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Inspection Speed</div>
+                                <div class="metric-value">8x</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Defect Detection</div>
+                                <div class="metric-value">94%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Safety Incidents</div>
+                                <div class="metric-value">-100%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Downtime Prevention</div>
+                                <div class="metric-value">85%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-header">
+                        <div class="use-case-tag">EMERGENCY RESPONSE</div>
+                        <h3>🚁 Disaster Zone Assessment</h3>
+                    </div>
+                    <div class="use-case-body">
+                        <p><strong>Challenge:</strong> First responders need rapid situational awareness in disaster zones where infrastructure is compromised and time is critical.</p>
+                        <p><strong>Solution:</strong> Mesh networking maintains communication when cellular fails. Real-time mapping identifies casualties and hazards. Portable design enables rapid deployment from any location.</p>
+                        <div class="use-case-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Deployment Time</div>
+                                <div class="metric-value">3 min</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Area Coverage</div>
+                                <div class="metric-value">5 km²/hr</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Rescue Success</div>
+                                <div class="metric-value">+45%</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Response Time</div>
+                                <div class="metric-value">-60%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section>
+        <div class="container">
+            <div class="cta-section">
+                <h2>Ready to Deploy ZIPI-IOX?</h2>
+                <p>Transform your drone operations with India's most advanced Ground Control System. Request a live demonstration or custom quote for your specific requirements.</p>
+                <div class="cta-group" style="justify-content: center;">
+                    <a href="../contact.html" class="btn btn-primary">REQUEST DEMONSTRATION</a>
+                    <a href="../contact.html" class="btn btn-outline">GET CUSTOM QUOTE</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 ZIPI Innovation Pvt. Ltd. | <a href="index-pro.html" style="color: var(--cyan-400);">Back to Home</a> | All Rights Reserved</p>
+    </footer>
+
+    <!-- WhatsApp -->
+    <a href="https://wa.me/918260609541" target="_blank" class="whatsapp-btn">💬</a>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -744,6 +744,8 @@
             text-decoration: none;
             font-size: 0.9rem;
             transition: gap 0.3s ease;
+            position: relative;
+            z-index: 5;
         }
 
         .product-link:hover {
@@ -1061,7 +1063,7 @@
                     <a href="#products" class="btn btn-primary">
                         EXPLORE TECHNOLOGY →
                     </a>
-                    <a href="contact.html" class="btn btn-outline">
+                    <a href="demo.html" class="btn btn-outline">
                         REQUEST DEMO
                     </a>
                 </div>
@@ -1174,7 +1176,7 @@
                             <span class="spec-badge">25km+</span>
                             <span class="spec-badge">Linux OS</span>
                         </div>
-                        <a href="product-gcs.html" class="product-link">TECHNICAL DETAILS →</a>
+                        <a href="/pages/product-gcs.html" class="product-link" onclick="event.stopPropagation();">TECHNICAL DETAILS →</a>
                     </div>
                 </div>
 

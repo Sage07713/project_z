@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZIPI Innovation – Demo Showcase</title>
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/styles.css">
+
+<style>
+
+/* -------- Demo Section -------- */
+.demo {
+    padding: 10rem 3rem 6rem;
+}
+
+.demo-container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.demo-title {
+    font-size: 3.2rem;
+    color: var(--slate-100);
+    margin-bottom: 4rem;
+    max-width: 800px;
+    line-height: 1.2;
+}
+
+.demo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* -------- Cards -------- */
+.demo-card {
+    background: rgba(30,41,59,0.5);
+    border: 1px solid rgba(6,182,212,0.15);
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.demo-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(6,182,212,0.5);
+}
+
+.demo-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--slate-400);
+    letter-spacing: 0.1em;
+    padding: 1.2rem 1.5rem 0;
+}
+
+.demo-card h3 {
+    padding: 0.5rem 1.5rem 1rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--slate-100);
+}
+
+.demo-image {
+    margin-top: auto;
+    height: 260px;
+    overflow: hidden;
+}
+
+.demo-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Highlight last card */
+.demo-card.highlight {
+    background: rgba(51,65,85,0.4);
+    border-bottom: 3px solid var(--cyan-400);
+}
+
+/* Responsive */
+@media(max-width:1200px){
+    .demo-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:700px){
+    .demo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .demo-title {
+        font-size: 2.2rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="container">
+        <div class="logo-container">
+            <div class="logo-mark"></div>
+            <div class="logo-text">
+                <div class="logo">ZIPI</div>
+                <div class="logo-sub">Innovation</div>
+            </div>
+        </div>
+
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="demo.html">DEMO</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- DEMO SECTION -->
+<section class="demo">
+<div class="demo-container">
+
+<h1 class="demo-title">
+Explore ZIPI Innovation
+Technology Demonstrations
+</h1>
+
+<div class="demo-grid">
+
+<!-- Demo 1 -->
+<a href="#" class="demo-card">
+    <div class="demo-tag">[AUTONOMY DEMO]</div>
+    <h3>Remote control GCS</h3>
+    <div class="demo-image">
+        <img src="assets/images/demo1.jpeg">
+    </div>
+</a>
+
+<!-- Demo 2 -->
+<a href="#" class="demo-card">
+    <div class="demo-tag">[GROUND CONTROL]</div>
+    <h3>Cinematic  FPV Shooting</h3>
+    <div class="demo-image">
+        <img src="assets/images/demo2.jpg">
+    </div>
+</a>
+
+<!-- Demo 3 -->
+<a href="#" class="demo-card">
+    <div class="demo-tag">[ISR OPERATIONS]</div>
+    <h3>Surveillance and other professional tools</h3>
+    <div class="demo-image">
+        <img src="assets/images/demo3.webp">
+    </div>
+</a>
+
+<!-- Demo 4 -->
+<a href="contact.html" class="demo-card highlight">
+    <div class="demo-tag">[REQUEST DEMO]</div>
+    <h3>Defence tech</h3>
+    <div class="demo-image">
+        <img src="assets/images/demo4.jpg">
+    </div>
+</a>
+
+</div>
+</div>
+</section>
+
+</body>
+</html>
